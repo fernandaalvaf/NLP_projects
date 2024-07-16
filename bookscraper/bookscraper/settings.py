@@ -14,7 +14,8 @@ NEWSPIDER_MODULE = "bookscraper.spiders"
 
 FEEDS = {
     'booksdata.json': {'format':'json'},
-    'booksdata.csv': {'format':'csv'}
+    'booksdata.csv': {'format':'csv',
+                      'fields':['url','title','language','file_name']}
 }
 
 

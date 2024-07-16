@@ -17,16 +17,13 @@ class BookscraperPipeline:
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-        filename = os.path.join(output_dir, self.clean_bookname(item['title']) + '.txt')
+        filename = os.path.join(output_dir, item['file_name'].lower())
 
         with open(filename, 'w', encoding='utf-8') as file:
             file.write(item.get('full_text',''))
 
         return item
     
-    def clean_bookname(self, title):
-        pattern_alphanum = r'[\W]'
-        clean_title = re.sub(pattern_alphanum,'',title)
-        return clean_title
+
 
 

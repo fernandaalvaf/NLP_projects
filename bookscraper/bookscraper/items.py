@@ -5,3 +5,4 @@ class BookItem(Item):
     url = Field()
     language = Field()
     full_text = Field()
+    file_name = Field()

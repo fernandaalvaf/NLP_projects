@@ -1,5 +1,6 @@
 import scrapy
 from bookscraper.items import BookItem
+import re
 
 # create the bookspider spider class
 class BookspiderSpider(scrapy.Spider):
@@ -13,7 +14,7 @@ class BookspiderSpider(scrapy.Spider):
          # get the list of books
          books = response.css('li.booklink')
          
-
+         i = 0
          # extract the url of the books and directs to it for further extraction
          for book in books:
             book_item = BookItem()
@@ -22,10 +23,14 @@ class BookspiderSpider(scrapy.Spider):
             book_url = "https://www.gutenberg.org" + relative_url
 
             book_item['url'] = book_url
-            book_item['title'] = book.css('span.title ::text').get()
+            book_item['title'] = book.css('span.title ::text').get()   
+            filename = re.sub(r'[\W]','',book_item['title'])
+            book_item['file_name'] = f"{filename}{i}.txt"
 
             request = response.follow(book_url, callback=self.parse_book_page)
             request.meta['book_item'] = book_item
+
+            i += 1
             yield request
 
          # extract the link of the next page url - not very clean in the code of project gutenberg
