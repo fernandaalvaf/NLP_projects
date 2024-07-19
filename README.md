@@ -1,2 +1,2 @@
 # NLP_projects
-portfolio of NLP projects
+(still small) portfolio of NLP projects
